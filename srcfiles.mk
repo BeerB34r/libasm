@@ -1,1 +1,1 @@
-SRC= hello_asm.nasm ft_write.nasm
+SRC= ft_write.nasm
