@@ -1,14 +1,15 @@
 #project structure
 include srcfiles.mk
 SRCDIR			= src/
+INCDIR			= mac/
 DEPDIR			= dep/
 BINDIR			= bin/
-DEP				= $(addprefix $(DEPDIR),$(SRC:.s=.d))
-BIN				= $(addprefix $(BINDIR),$(SRC:.s=.o))
+DEP				= $(addprefix $(DEPDIR),$(SRC:.nasm=.d))
+BIN				= $(addprefix $(BINDIR),$(SRC:.nasm=.o))
 
 # utilities
 ASM				= nasm
-ASMFLAGS		= -f elf64 -Wall -Werror
+ASMFLAGS		= -f elf64 -Wall -Werror $(addprefix -i,$(INCDIR)) -g
 LD				= ld
 LDFLAGS			= -s
 RM				= rm -fr
@@ -16,7 +17,7 @@ RM				= rm -fr
 DEPFLAG			= -M -MT "$@ $(BINDIR)$(notdir $(basename $<)).o"
 
 # makefile management
-VPATH=$(SRCDIR)
+VPATH=$(SRCDIR) $(INCDIR)
 MAKEFLAGS		+= -r --no-print-directory -j
 .EXTRA_PREREQS	= $(firstword $(MAKEFILE_LIST))
 .DEFAULT_GOAL	:= all
@@ -30,16 +31,16 @@ test:	test_bin
 	./$<
 
 test_bin:	main.c $(NAME)
-	$(CC) -o $@ $^
+	$(CC) -g -o $@ $^
 
 all	: $(NAME)
 $(NAME)	: $(BIN)
 	$(AR) $(ARFLAGS) -o $@ $^
 
-$(BINDIR)%.o	: %.s | $(BINDIR)
+$(BINDIR)%.o	: %.nasm | $(BINDIR)
 	$(ASM) $(ASMFLAGS) -o $@ $<
 
-$(DEPDIR)%.d	: %.s | $(DEPDIR)
+$(DEPDIR)%.d	: %.nasm | $(DEPDIR)
 	$(ASM) $(DEPFLAG) $< >$@
 
 %/	:

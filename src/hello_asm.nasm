@@ -1,11 +1,9 @@
+%include "sys.mac.nasm"
+
 section .text
 global hello_asm
 hello_asm:
-	mov rdi, 1
-	mov rsi, msg
-	mov rdx, msg_len
-	mov rax, 1
-	syscall
+	sys_write 1, msg, msg_len
 	ret
 
 section .data
