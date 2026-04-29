@@ -1,5 +1,5 @@
 ; nasm includes
-%include "sys.mac.nasm"
+%include "sys.mac"
 
 extern __errno_location
 

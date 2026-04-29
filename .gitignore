@@ -1,7 +1,7 @@
 *
 !*/
 # asm files
-!*.nasm
+!*.s
 # nasm macro files
 !*.mac
 !*.c
@@ -9,3 +9,6 @@
 !*.mk
 !makefile
 !.gitignore
+!.asm-lsp.toml
+!README.md
+!LICENSE

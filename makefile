@@ -4,8 +4,8 @@ SRCDIR			= src/
 INCDIR			= mac/
 DEPDIR			= dep/
 BINDIR			= bin/
-DEP				= $(addprefix $(DEPDIR),$(SRC:.nasm=.d))
-BIN				= $(addprefix $(BINDIR),$(SRC:.nasm=.o))
+DEP				= $(addprefix $(DEPDIR),$(SRC:.s=.d))
+BIN				= $(addprefix $(BINDIR),$(SRC:.s=.o))
 
 # utilities
 ASM				= nasm
@@ -37,10 +37,10 @@ all	: $(NAME)
 $(NAME)	: $(BIN)
 	$(AR) $(ARFLAGS) -o $@ $^
 
-$(BINDIR)%.o	: %.nasm | $(BINDIR)
+$(BINDIR)%.o	: %.s | $(BINDIR)
 	$(ASM) $(ASMFLAGS) -o $@ $<
 
-$(DEPDIR)%.d	: %.nasm | $(DEPDIR)
+$(DEPDIR)%.d	: %.s | $(DEPDIR)
 	$(ASM) $(DEPFLAG) $< >$@
 
 %/	:
