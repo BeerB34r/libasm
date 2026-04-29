@@ -31,7 +31,7 @@ test:	test_bin
 	printf "Hello, World!\n" | ./$<
 
 test_bin:	main.c $(NAME)
-	$(CC) -g -o $@ $^
+	$(CC) -Wno-format -g -o $@ $^
 
 all	: $(NAME)
 $(NAME)	: $(BIN)
