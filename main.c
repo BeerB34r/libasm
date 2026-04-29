@@ -21,17 +21,25 @@ int	main(int ac, char **av) {
 	char	buf[256];
 	printf("Testing asm functions:\n");
 
-	printf("-----ft_write()------\n");
-	test("id", ft_write(STDOUT_FILENO, "Hello, World!\n", 14), == 14);
-	test("error", ft_write(42, "Hello, World!\n", 14), < 0);
-	printf("strerror(errno) => %s\n", strerror(errno));
-
-	printf("\n-----ft_read()-------\n");
-	test("id", ft_read(STDIN_FILENO, buf, 256), == 14);
-	printf("buf => \"%.*s\"\n", 14, buf);
-	test("error", ft_read(42, buf, 256), < 0);
-	printf("buf => \"%.*s\"\n", 14, buf);
-	printf("strerror(errno) => %s\n", strerror(errno));
+	{	// ft_write()
+		printf("-----ft_write()------\n");
+		test("id", ft_write(STDOUT_FILENO, "Hello, World!\n", 14), == 14);
+		test("error", ft_write(42, "Hello, World!\n", 14), < 0);
+		printf("strerror(errno) => %s\n", strerror(errno));
+	}
+	{ // ft_read()
+		printf("\n-----ft_read()-------\n");
+		test("id", ft_read(STDIN_FILENO, buf, 256), == 14);
+		printf("buf => \"%.*s\"\n", 14, buf);
+		test("error", ft_read(42, buf, 256), < 0);
+		printf("buf => \"%.*s\"\n", 14, buf);
+		printf("strerror(errno) => %s\n", strerror(errno));
+	}
+	{	// ft_strlen()
+		printf("\n-----ft_strlen()---\n");
+		test("id", ft_strlen("Hello, World!\n"), == 14);
+		test("empty", ft_strlen(""), == 0);
+	}
 
 	printf("\n-----finished-----\n");
 	return test_failed;
