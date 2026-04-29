@@ -8,6 +8,6 @@ ft_strcpy:
 		inc rcx
 		cmp byte [rsi + rcx], 0
 		jne .loop
-	rep movsb
+	rep movsb ; i love moving strings
 	leave
 	ret

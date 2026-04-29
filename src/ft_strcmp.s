@@ -3,8 +3,8 @@ global ft_strcmp
 ft_strcmp:
 	enter 0, 0
 	.loop:
-		mov al, [rdi]	; al => lowest byte of rax
-		mov cl, [rsi]	; cl => lowest byte of rcx
+		movsx rax, byte [rdi] ; mov + Sign Xtension
+		movsx rcx, byte [rsi]
 		sub rax, rcx
 		jnz .end
 		cmp byte [rdi], 0

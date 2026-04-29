@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
 #include <stdio.h>
@@ -9,12 +10,21 @@
 #define OK "\033[1;32m[OK]\033[0m"
 #define KO "\033[1;31m[KO]\033[0m"
 
-#define test(name, type, case, pred) do {						\
+#define test(name, type, case, pred) do {				\
 	printf("%s: %s %s\n", name, #case, #pred);			\
-	type test_rv = case;									\
+	type test_rv = case;								\
 	printf("%s: %zi\n", ok_ko(test_rv pred), test_rv);	\
 	test_failed |= !(test_rv pred);						\
 } while (0)
+
+#define test_malloc(name, type, case, pred) do {		\
+	printf("%s: %s %s\n", name, #case, #pred);			\
+	type test_rv = case;								\
+	printf("%s: %zi\n", ok_ko(test_rv pred), test_rv);	\
+	test_failed |= !(test_rv pred);						\
+	free(test_rv);										\
+} while (0)
+
 
 int	main(int ac, char **av) {
 	bool	test_failed = false;
@@ -56,6 +66,18 @@ int	main(int ac, char **av) {
 		test("unequal", int, ft_strcmp("Hello, World!\n", "Hello, Universe!\n"), != 0);
 		test("less", int, ft_strcmp("a", "b"), == -1);
 		test("more", int, ft_strcmp("b", "a"), == 1);
+	}
+	{	// ft_strdup()
+		char	*rv = NULL;
+		printf("\n-----ft_strdup()---\n");
+		test_malloc("id", char *, ft_strdup("Hello, World!\n"), != 0);
+		{
+			const char *s = "1";
+			char	*d = ft_strdup(s);
+			printf("s == ft_strdup(s) => %s\n", ok_ko(!strcmp(s, d)));
+			printf("s = \"%s\"[%i]\nd = \"%s\"[%i]\n", s, ft_strlen(s), d, ft_strlen(d));
+			free(d);
+		}
 	}
 
 	printf("\n-----finished-----\n");
