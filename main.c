@@ -50,6 +50,13 @@ int	main(int ac, char **av) {
 		test("empty", char *, ft_strcpy(buf, ""), == buf);
 		printf("buf == \"\" => %s\n", ok_ko(!strcmp(buf, "")));
 	}
+	{	// ft_strcmp()
+		printf("\n-----ft_strcmp()---\n");
+		test("id", int, ft_strcmp("Hello, World!\n", "Hello, World!\n"), == 0);
+		test("unequal", int, ft_strcmp("Hello, World!\n", "Hello, Universe!\n"), != 0);
+		test("less", int, ft_strcmp("a", "b"), == -1);
+		test("more", int, ft_strcmp("b", "a"), == 1);
+	}
 
 	printf("\n-----finished-----\n");
 	return test_failed;
