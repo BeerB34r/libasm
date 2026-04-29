@@ -28,7 +28,7 @@ MAKEFLAGS		+= -r --no-print-directory -j
 NAME			= libasm.a
 
 test:	test_bin
-	./$<
+	printf "Hello, World!\n" | ./$<
 
 test_bin:	main.c $(NAME)
 	$(CC) -g -o $@ $^

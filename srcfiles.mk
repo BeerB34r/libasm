@@ -1,1 +1,1 @@
-SRC= ft_write.nasm
+SRC= ft_write.nasm ft_read.nasm
