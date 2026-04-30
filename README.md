@@ -17,3 +17,10 @@ implement in nasm:
 - ft_list_size
 - ft_list_sort
 - ft_list_remove_if
+
+## final thoughts
+genuinely a great starting point for getting the hang of the smaller
+idiosyncracies of assembler and nasm in particular. while i never felt like i
+_needed_ to use the preprocessor, when i chose to do so things fell into place a
+lot quicker. fun itme, weird quirks. feel like i learned a lot
+
