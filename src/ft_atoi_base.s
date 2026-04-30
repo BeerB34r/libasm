@@ -1,14 +1,3 @@
-%macro check_exit 2
-	cmp byte %1, %2
-	je .exit
-%endmacro
-%macro ws_check 2
-	cmp byte %1, %2
-	jne %%not_found
-	inc i
-	jmp .skip_whitespace
-	%%not_found:
-%endmacro
 
 section .text
 global ft_atoi_base
@@ -39,7 +28,10 @@ ft_atoi_base:
 			mov i, -1
 			.invalid_characters.loop:
 				inc i
-				; should probably be a function huh...
+				%macro check_exit 2
+					cmp byte %1, %2
+					je .exit
+				%endmacro
 				check_exit [base + i], 0x20	; space
 				check_exit [base + i], 0x09	; '\t'
 				check_exit [base + i], 0x0A	; '\n'
@@ -73,6 +65,13 @@ ft_atoi_base:
 	mov i, 0
 	mov sign, 1
 	.skip_whitespace:
+		%macro ws_check 2
+			cmp byte %1, %2
+			jne %%not_found
+			inc i
+			jmp .skip_whitespace
+			%%not_found:
+		%endmacro
 		ws_check [str + i], 0x20	; space
 		ws_check [str + i], 0x09	; '\t'
 		ws_check [str + i], 0x0A	; '\n'
