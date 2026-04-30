@@ -1,5 +1,3 @@
-extern ft_strcpy
-extern ft_strlen
 extern malloc
 
 section .text

@@ -22,6 +22,6 @@ ft_read:
 	.ok:					; set errno appropriately
 		mov word [rax], 0
 		mov rax, rdi
-	.exit:
-		leave				; restore stack frame
-		ret
+.exit:
+	leave					; restore stack frame
+	ret

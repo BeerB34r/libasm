@@ -79,6 +79,33 @@ int	main(int ac, char **av) {
 			free(d);
 		}
 	}
+	{	// ft_atoi_base()
+		printf("\n-----ft_atoi_base--\n");
+		test("base_check", int, ft_atoi_base("1", ""), == 0);
+		test("base_check", int, ft_atoi_base("1", " "), == 0);
+		test("base_check", int, ft_atoi_base("1", " 1"), == 0);
+		test("base_check", int, ft_atoi_base("1", "\t1"), == 0);
+		test("base_check", int, ft_atoi_base("1", "\n1"), == 0);
+		test("base_check", int, ft_atoi_base("1", "\v1"), == 0);
+		test("base_check", int, ft_atoi_base("1", "\f1"), == 0);
+		test("base_check", int, ft_atoi_base("1", "\r1"), == 0);
+		test("base_check", int, ft_atoi_base("1", "+1"), == 0);
+		test("base_check", int, ft_atoi_base("1", "-1"), == 0);
+		test("base_check", int, ft_atoi_base("1", "11"), == 0);
+		test("base_check", int, ft_atoi_base("1", "12345677"), == 0);
+		test("id", int, ft_atoi_base("1", "0123456789"), == 1);
+		test("id", int, ft_atoi_base("0123456789", "0123456789"), == 123456789);
+		test("sign", int, ft_atoi_base("-1", "0123456789"), == -1);
+		test("sign", int, ft_atoi_base("+1", "0123456789"), == 1);
+		test("whitespace", int, ft_atoi_base(" 1", "0123456789"), == 1);
+		test("whitespace", int, ft_atoi_base("\t1", "0123456789"), == 1);
+		test("whitespace", int, ft_atoi_base("\n1", "0123456789"), == 1);
+		test("whitespace", int, ft_atoi_base("\v1", "0123456789"), == 1);
+		test("whitespace", int, ft_atoi_base("\f1", "0123456789"), == 1);
+		test("whitespace", int, ft_atoi_base("\r1", "0123456789"), == 1);
+		test("combos", int, ft_atoi_base("      \t\t\t\t\r  \r\r\n\n\n\f\t\r\v+3", "0123456789"), == 3);
+		test("nonstandard base", int, ft_atoi_base("abcdef", "abcdefghij"), == 12345);
+	}
 
 	printf("\n-----finished-----\n");
 	return test_failed;
