@@ -26,9 +26,23 @@
 } while (0)
 
 void	lstclear(t_list *lst) {
-	if (lst->next)
-		lstclear(lst->next);
+	if (!lst) return ;
+	lstclear(lst->next);
 	free(lst);
+}
+
+void	noop(void *p) {
+	(void)p;
+}
+
+int		equ(void *a, void *b) {
+	return !((long long)a == (long long)b);
+}
+
+int		dummy(void *a, void* b) {
+	(void)a;
+	(void)b;
+	return 0;
 }
 
 int	main(int ac, char **av) {
@@ -161,8 +175,15 @@ int	main(int ac, char **av) {
 		for (t_list* current = list; current; current = current->next) {
 			printf("list->data => %s", current->data);
 		}
+		ft_list_remove_if(&list, "1\n", ft_strcmp, noop);
+		ft_list_sort(&list, ft_strcmp);
+		printf("ft_list_size(list) => %d\n", ft_list_size(list));
+		for (t_list* current = list; current; current = current->next) {
+			printf("list->data => %s", current->data);
+		}
 		lstclear(list);
 	}
+	printf("\n-----assorted-----\n");
 	t_list	*list = NULL;
 	for (int i = 1; i < ac; ++i) {
 		ft_list_push_front(&list, av[i]);
@@ -172,6 +193,11 @@ int	main(int ac, char **av) {
 		printf("list->data => %s\n", current->data);
 	}
 	ft_list_sort(&list, ft_strcmp);
+	printf("ft_list_size(list) => %d\n", ft_list_size(list));
+	for (t_list* current = list; current; current = current->next) {
+		printf("list->data => %s\n", current->data);
+	}
+	ft_list_remove_if(&list, av[3], equ, noop);
 	printf("ft_list_size(list) => %d\n", ft_list_size(list));
 	for (t_list* current = list; current; current = current->next) {
 		printf("list->data => %s\n", current->data);
