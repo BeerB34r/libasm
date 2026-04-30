@@ -30,15 +30,24 @@
 # include <stddef.h>
 
 /*	Mandatory	*/
-ssize_t	ft_write(int fd, const void *buf, size_t count);
-ssize_t	ft_read(int fd, void *buf, size_t count);
-size_t	ft_strlen(const char *s);
-char	*ft_strcpy(char *d, const char *s);
-int		ft_strcmp(const char *s1, const char *s2);
-char	*ft_strdup(const char *s);
+ssize_t	ft_write(int fd, const void *buf, size_t count);	// man 2 write
+ssize_t	ft_read(int fd, void *buf, size_t count);			// man 2 read
+size_t	ft_strlen(const char *s);							// man 3 strlen
+char	*ft_strcpy(char *d, const char *s);					// man 3 strcpy
+int		ft_strcmp(const char *s1, const char *s2);			// man 3 strcmp
+char	*ft_strdup(const char *s);							// man 3 strdup
 
 /*	Bonus	*/
+
+typedef struct s_list {
+	void			*data;
+	struct s_list	*next;
+}	t_list;
+
 int		ft_atoi_base(const char *str, const char *base);
+void	ft_list_push_front(t_list **begin_list, void *data);
+int		ft_list_size(t_list *begin_list);
+void	ft_list_sort(t_list **list, int (*cmp)());
 
 #endif /* ifndef LIBASM_H
 # define LIBASM_H */

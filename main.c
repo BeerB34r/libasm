@@ -25,6 +25,11 @@
 	free(test_rv);										\
 } while (0)
 
+void	lstclear(t_list *lst) {
+	if (lst->next)
+		lstclear(lst->next);
+	free(lst);
+}
 
 int	main(int ac, char **av) {
 	bool	test_failed = false;
@@ -106,6 +111,72 @@ int	main(int ac, char **av) {
 		test("combos", int, ft_atoi_base("      \t\t\t\t\r  \r\r\n\n\n\f\t\r\v+3", "0123456789"), == 3);
 		test("nonstandard base", int, ft_atoi_base("abcdef", "abcdefghij"), == 12345);
 	}
+	{	// list functions
+		t_list	*list = NULL;
+		printf("\n----list functions--\n");
+		ft_list_push_front(&list, "1\n");
+		ft_list_push_front(&list, "3\n");
+		ft_list_push_front(&list, "2\n");
+		printf("ft_list_size(list) => %d\n", ft_list_size(list));
+		for (t_list* current = list; current; current = current->next) {
+			printf("list->data => %s", current->data);
+		}
+		ft_list_sort(&list, ft_strcmp);
+		printf("ft_list_size(list) => %d\n", ft_list_size(list));
+		for (t_list* current = list; current; current = current->next) {
+			printf("list->data => %s", current->data);
+		}
+		lstclear(list);
+	}
+	{	// list functions
+		t_list	*list = NULL;
+		ft_list_sort(&list, ft_strcmp);
+		printf("\n----list functions--\n");
+		ft_list_push_front(&list, "2\n");
+		ft_list_push_front(&list, "3\n");
+		ft_list_push_front(&list, "1\n");
+		printf("ft_list_size(list) => %d\n", ft_list_size(list));
+		for (t_list* current = list; current; current = current->next) {
+			printf("list->data => %s", current->data);
+		}
+		ft_list_sort(&list, ft_strcmp);
+		printf("ft_list_size(list) => %d\n", ft_list_size(list));
+		for (t_list* current = list; current; current = current->next) {
+			printf("list->data => %s", current->data);
+		}
+		lstclear(list);
+	}
+	{	// list functions
+		t_list	*list = NULL;
+		printf("\n----list functions--\n");
+		ft_list_push_front(&list, "1\n");
+		ft_list_push_front(&list, "2\n");
+		ft_list_push_front(&list, "3\n");
+		printf("ft_list_size(list) => %d\n", ft_list_size(list));
+		for (t_list* current = list; current; current = current->next) {
+			printf("list->data => %s", current->data);
+		}
+		ft_list_sort(&list, ft_strcmp);
+		printf("ft_list_size(list) => %d\n", ft_list_size(list));
+		for (t_list* current = list; current; current = current->next) {
+			printf("list->data => %s", current->data);
+		}
+		lstclear(list);
+	}
+	t_list	*list = NULL;
+	for (int i = 1; i < ac; ++i) {
+		ft_list_push_front(&list, av[i]);
+	}
+	printf("ft_list_size(list) => %d\n", ft_list_size(list));
+	for (t_list* current = list; current; current = current->next) {
+		printf("list->data => %s\n", current->data);
+	}
+	ft_list_sort(&list, ft_strcmp);
+	printf("ft_list_size(list) => %d\n", ft_list_size(list));
+	for (t_list* current = list; current; current = current->next) {
+		printf("list->data => %s\n", current->data);
+	}
+	lstclear(list);
 
 	printf("\n-----finished-----\n");
 	return test_failed;

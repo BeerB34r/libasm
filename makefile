@@ -29,7 +29,7 @@ MAKEFLAGS		+= -r --no-print-directory -j
 NAME			= libasm.a
 
 test:	test_bin
-	printf "Hello, World!\n" | ./$<
+	printf "Hello, World!\n" | ./$< `shuf -i 0-9`
 
 test_bin:	main.c bonus
 	$(CC) -Wno-format -g -o $@ $< $(NAME)
