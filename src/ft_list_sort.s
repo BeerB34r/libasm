@@ -19,11 +19,11 @@
 	mov rdi, prev
 	mov rcx, prevprev
 	cmp rax, 0
-	jle %%no_swap
-	swap
+	jg %%swap
+	mov rax, 0
 	jmp %%done
-	%%no_swap:
-		mov rax, 0
+	%%swap:
+		swap
 	%%done:
 %endmacro
 
